@@ -1,0 +1,1783 @@
+{
+  "headers": [
+    {
+      "tool_name": "scancode-toolkit",
+      "tool_version": "32.0.6",
+      "options": {
+        "input": ".",
+        "--copyright": true,
+        "--license": true,
+        "--package": true,
+        "--info": true,
+        "--json-pp": "report.json",
+        "--html": "report.html",
+        "--verbose": false,
+        "--quiet": false,
+        "--timeout": 120,
+        "--processes": 1,
+        "--strip-root": false,
+        "--ignore": [],
+        "--include": [],
+        "--classify": false,
+        "--summary": false,
+        "--summary-key": [],
+        "--facet": [],
+        "--license-score": 0,
+        "--license-text": false,
+        "--license-text-diagnostics": false,
+        "--license-diag": false,
+        "--package": true,
+        "--license-clarity-score": false,
+        "--url": null,
+        "--max-in-memory": 0,
+        "--reindex-licenses": false,
+        "--filter-clues": false,
+        "--consolidate": false
+      },
+      "output_format_version": "3.0.0",
+      "scancode_version": "32.0.6",
+      "scancode_notice": "Generated with ScanCode and provided on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. No content created from ScanCode should be considered or used as legal advice. Consult an Attorney for any legal advice. ScanCode is a free software code scanning tool from nexB Inc. and others. Visit https://github.com/nexB/scancode-toolkit/ for support and download.",
+      "detection_logic": [
+        "A LicenseDetection is either (1) a license detected in a file from license texts, license notices, (2) a license detected in a package, or (3) a license declared in a package or component metadata."
+      ],
+      "extra_data": {
+        "system_environment": {
+          "os": "Windows 11 10.0.22631",
+          "python_version": "3.12.7",
+          "cpu": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+          "memory_available_mb": 16384
+        },
+        "file_count": 1468,
+        "directory_count": 156,
+        "total_file_size_mb": 38.6
+      },
+      "scan_start": "2026-10-29T14:23:11.432100",
+      "scan_end": "2026-10-29T14:26:47.891200"
+    }
+  ],
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "type": "file",
+      "name": "LICENSE.txt",
+      "extension": ".txt",
+      "date": "2024-09-20",
+      "size": 11358,
+      "sha1": "cfc7749b96f63bd31c3c42b5c471bf756814e597",
+      "md5": "3b83ef96387f14655fc854ddc3c6bd57",
+      "sha256": "b40930bbcf80744c86c46a12bc46c797d51d00470c1d4f3a9e2f3a5c7c3d2e1f",
+      "mime_type": "text/plain",
+      "file_type": "ASCII text",
+      "programming_language": null,
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": true,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "homepage_url": "http://www.apache.org/licenses/",
+          "text_url": "http://www.apache.org/licenses/LICENSE-2.0",
+          "reference_url": "https://enterprise.dejacode.com/urn/urn:dje:license:apache-2.0",
+          "spdx_license_key": "Apache-2.0",
+          "other_spdx_license_keys": [],
+          "scancode_text_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.LICENSE",
+          "scancode_data_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.yml"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 1,
+              "end_line": 201,
+              "matched_length": 9032,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "100-license",
+              "rule_identifier": "apache-2.0.LICENSE",
+              "rule_relevance": 100,
+              "rule_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/rules/",
+              "matched_text": ""
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation. All rights reserved."
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation. All rights reserved.",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 2,
+          "end_line": 2
+        }
+      ],
+      "emails": [],
+      "urls": [],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "NOTICE.txt",
+      "type": "file",
+      "name": "NOTICE.txt",
+      "extension": ".txt",
+      "date": "2024-09-20",
+      "size": 784,
+      "sha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mime_type": "text/plain",
+      "file_type": "ASCII text",
+      "programming_language": null,
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": true,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 98.5,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "homepage_url": "http://www.apache.org/licenses/",
+          "text_url": "http://www.apache.org/licenses/LICENSE-2.0",
+          "reference_url": "https://enterprise.dejacode.com/urn/urn:dje:license:apache-2.0",
+          "spdx_license_key": "Apache-2.0",
+          "other_spdx_license_keys": [],
+          "scancode_text_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.LICENSE",
+          "scancode_data_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.yml"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 98.5,
+              "start_line": 1,
+              "end_line": 12,
+              "matched_length": 312,
+              "match_coverage": 98.5,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 98.5
+                }
+              ],
+              "matcher": "4-license-notice",
+              "rule_identifier": "apache-2.0-notice_26.RULE",
+              "rule_relevance": 50,
+              "rule_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/rules/",
+              "matched_text": ""
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/",
+        "http://commons.apache.org/lang/"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/StringUtils.java",
+      "type": "file",
+      "name": "StringUtils.java",
+      "extension": ".java",
+      "date": "2024-09-18",
+      "size": 152340,
+      "sha1": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "md5": "b1c2d3e4f5a6b1c2d3e4f5a6b1c2d3e4",
+      "sha256": "c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "homepage_url": "http://www.apache.org/licenses/",
+          "text_url": "http://www.apache.org/licenses/LICENSE-2.0",
+          "reference_url": "https://enterprise.dejacode.com/urn/urn:dje:license:apache-2.0",
+          "spdx_license_key": "Apache-2.0",
+          "other_spdx_license_keys": [],
+          "scancode_text_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.LICENSE",
+          "scancode_data_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/licenses/apache-2.0.yml"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100,
+              "rule_url": "https://github.com/nexB/scancode-toolkit/tree/develop/src/licensedcode/data/rules/",
+              "matched_text": " Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at\n\n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License."
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/ArrayUtils.java",
+      "type": "file",
+      "name": "ArrayUtils.java",
+      "extension": ".java",
+      "date": "2024-09-18",
+      "size": 98765,
+      "sha1": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+      "md5": "c2d3e4f5a6b1c2d3e4f5a6b1c2d3e4f5",
+      "sha256": "d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/StringEscapeUtils.java",
+      "type": "file",
+      "name": "StringEscapeUtils.java",
+      "extension": ".java",
+      "date": "2024-09-15",
+      "size": 45678,
+      "sha1": "c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4",
+      "md5": "d3e4f5a6b1c2d3e4f5a6b1c2d3e4f5a6",
+      "sha256": "e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java",
+      "type": "file",
+      "name": "ToStringBuilder.java",
+      "extension": ".java",
+      "date": "2024-09-12",
+      "size": 34567,
+      "sha1": "d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5",
+      "md5": "e4f5a6b1c2d3e4f5a6b1c2d3e4f5a6b1",
+      "sha256": "f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/math/Fraction.java",
+      "type": "file",
+      "name": "Fraction.java",
+      "extension": ".java",
+      "date": "2024-09-10",
+      "size": 28901,
+      "sha1": "e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6",
+      "md5": "f5a6b1c2d3e4f5a6b1c2d3e4f5a6b1c2",
+      "sha256": "a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/time/DateUtils.java",
+      "type": "file",
+      "name": "DateUtils.java",
+      "extension": ".java",
+      "date": "2024-09-08",
+      "size": 67890,
+      "sha1": "f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1",
+      "md5": "a6b1c2d3e4f5a6b1c2d3e4f5a6b1c2d3",
+      "sha256": "b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1d2e3f4a5b6c1",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/test/java/org/apache/commons/lang3/StringUtilsTest.java",
+      "type": "file",
+      "name": "StringUtilsTest.java",
+      "extension": ".java",
+      "date": "2024-09-18",
+      "size": 89012,
+      "sha1": "a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6",
+      "md5": "b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2",
+      "sha256": "c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "pom.xml",
+      "type": "file",
+      "name": "pom.xml",
+      "extension": ".xml",
+      "date": "2024-09-20",
+      "size": 18432,
+      "sha1": "d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7",
+      "md5": "e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3",
+      "sha256": "f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8",
+      "mime_type": "application/xml",
+      "file_type": "XML 1.0 document, ASCII text",
+      "programming_language": "XML",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": true,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 27,
+              "end_line": 33,
+              "matched_length": 245,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [
+        "dev@commons.apache.org"
+      ],
+      "urls": [
+        "https://commons.apache.org/proper/commons-lang/",
+        "https://gitbox.apache.org/repos/asf?p=commons-lang.git",
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [],
+      "package_type": "maven",
+      "package_name": "org.apache.commons:commons-lang3",
+      "package_version": "3.14.0",
+      "packages": [
+        {
+          "type": "maven",
+          "namespace": "org.apache.commons",
+          "name": "commons-lang3",
+          "version": "3.14.0",
+          "qualifiers": {},
+          "subpath": null,
+          "primary_language": "Java",
+          "code_type": "source",
+          "description": "Apache Commons Lang, a package of Java utility classes for the classes that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang.",
+          "keywords": ["commons", "lang", "java", "utility"],
+          "homepage_url": "https://commons.apache.org/proper/commons-lang/",
+          "download_url": null,
+          "size": null,
+          "sha1": null,
+          "md5": null,
+          "sha256": null,
+          "sha512": null,
+          "bug_tracking_url": "https://issues.apache.org/jira/browse/LANG",
+          "code_view_url": "https://gitbox.apache.org/repos/asf?p=commons-lang.git",
+          "vcs_url": "https://gitbox.apache.org/repos/asf/commons-lang.git",
+          "repository_homepage_url": "https://gitbox.apache.org/repos/asf/commons-lang.git",
+          "repository_download_url": "https://gitbox.apache.org/repos/asf/commons-lang.git",
+          "api_data_url": null,
+          "license_expression": "apache-2.0",
+          "declared_license": "Apache-2.0",
+          "copyright": null,
+          "holder": null,
+          "authors": [
+            "The Apache Software Foundation"
+          ],
+          "maintainers": [
+            "The Apache Software Foundation"
+          ],
+          "contributors": [],
+          "dependencies": [
+            {
+              "purl": "pkg:maven/junit/junit@4.13.2",
+              "requirement": "4.13.2",
+              "scope": "test",
+              "type": "maven",
+              "namespace": "junit",
+              "name": "junit",
+              "version": "4.13.2"
+            },
+            {
+              "purl": "pkg:maven/org.hamcrest/hamcrest@2.2",
+              "requirement": "2.2",
+              "scope": "test",
+              "type": "maven",
+              "namespace": "org.hamcrest",
+              "name": "hamcrest",
+              "version": "2.2"
+            }
+          ],
+          "related_packages": [],
+          "installed_files": []
+        }
+      ],
+      "errors": []
+    },
+    {
+      "path": "src/site/site.xml",
+      "type": "file",
+      "name": "site.xml",
+      "extension": ".xml",
+      "date": "2024-09-01",
+      "size": 3201,
+      "sha1": "e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8",
+      "md5": "f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4",
+      "sha256": "a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9",
+      "mime_type": "application/xml",
+      "file_type": "XML 1.0 document, ASCII text",
+      "programming_language": "XML",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [],
+      "license_expressions": [],
+      "license_detections": [],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [],
+      "urls": [],
+      "holders_legacy": [],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/resources/org/apache/commons/lang3/Strings.properties",
+      "type": "file",
+      "name": "Strings.properties",
+      "extension": ".properties",
+      "date": "2024-08-15",
+      "size": 456,
+      "sha1": "f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9",
+      "md5": "a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5",
+      "sha256": "b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+      "mime_type": "text/plain",
+      "file_type": "ASCII text",
+      "programming_language": null,
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [],
+      "license_expressions": [],
+      "license_detections": [],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [],
+      "urls": [],
+      "holders_legacy": [],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "name": "README.md",
+      "extension": ".md",
+      "date": "2024-09-20",
+      "size": 8934,
+      "sha1": "b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
+      "md5": "c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6",
+      "sha256": "d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1",
+      "mime_type": "text/plain",
+      "file_type": "Markdown document, ASCII text",
+      "programming_language": "Markdown",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 95.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 95.0,
+              "start_line": 1,
+              "end_line": 3,
+              "matched_length": 120,
+              "match_coverage": 95.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 95.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 80
+            }
+          ]
+        }
+      ],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [
+        "dev@commons.apache.org"
+      ],
+      "urls": [
+        "https://commons.apache.org/proper/commons-lang/",
+        "https://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/changes/changes.xml",
+      "type": "file",
+      "name": "changes.xml",
+      "extension": ".xml",
+      "date": "2024-09-20",
+      "size": 45678,
+      "sha1": "c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1",
+      "md5": "d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7",
+      "sha256": "e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2",
+      "mime_type": "application/xml",
+      "file_type": "XML 1.0 document, ASCII text",
+      "programming_language": "XML",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [],
+      "license_expressions": [],
+      "license_detections": [],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [],
+      "urls": [],
+      "holders_legacy": [],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "checkstyle.xml",
+      "type": "file",
+      "name": "checkstyle.xml",
+      "extension": ".xml",
+      "date": "2024-07-10",
+      "size": 5678,
+      "sha1": "d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2",
+      "md5": "e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+      "sha256": "f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3",
+      "mime_type": "application/xml",
+      "file_type": "XML 1.0 document, ASCII text",
+      "programming_language": "XML",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 1,
+              "end_line": 20,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [],
+      "holders": [],
+      "copyright_detections": [],
+      "emails": [],
+      "urls": [],
+      "holders_legacy": [],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/ExceptionUtils.java",
+      "type": "file",
+      "name": "ExceptionUtils.java",
+      "extension": ".java",
+      "date": "2024-09-05",
+      "size": 41234,
+      "sha1": "e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3",
+      "md5": "f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9",
+      "sha256": "a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java",
+      "type": "file",
+      "name": "ConcurrentUtils.java",
+      "extension": ".java",
+      "date": "2024-08-28",
+      "size": 23456,
+      "sha1": "f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
+      "md5": "a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0",
+      "sha256": "b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java",
+      "type": "file",
+      "name": "MethodUtils.java",
+      "extension": ".java",
+      "date": "2024-08-20",
+      "size": 56789,
+      "sha1": "a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5",
+      "md5": "b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1",
+      "sha256": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    },
+    {
+      "path": "src/main/java/org/apache/commons/lang3/tuple/Pair.java",
+      "type": "file",
+      "name": "Pair.java",
+      "extension": ".java",
+      "date": "2024-08-15",
+      "size": 12345,
+      "sha1": "b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6",
+      "md5": "c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+      "sha256": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7",
+      "mime_type": "text/x-java",
+      "file_type": "Java source code, ASCII text",
+      "programming_language": "Java",
+      "is_binary": false,
+      "is_text": true,
+      "is_archive": false,
+      "is_media": false,
+      "is_key_file": false,
+      "is_script": false,
+      "licenses": [
+        {
+          "key": "apache-2.0",
+          "score": 100.0,
+          "name": "Apache License 2.0",
+          "short_name": "Apache 2.0",
+          "category": "Permissive",
+          "is_exception": false,
+          "is_unknown": false,
+          "owner": "Apache Software Foundation",
+          "spdx_license_key": "Apache-2.0"
+        }
+      ],
+      "license_expressions": [
+        "apache-2.0"
+      ],
+      "license_detections": [
+        {
+          "license_expression": "apache-2.0",
+          "matches": [
+            {
+              "score": 100.0,
+              "start_line": 17,
+              "end_line": 25,
+              "matched_length": 612,
+              "match_coverage": 100.0,
+              "license_expression": "apache-2.0",
+              "licenses": [
+                {
+                  "key": "apache-2.0",
+                  "score": 100.0
+                }
+              ],
+              "matcher": "2-license-notice",
+              "rule_identifier": "apache-2.0-notice_80.RULE",
+              "rule_relevance": 100
+            }
+          ]
+        }
+      ],
+      "copyrights": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation"
+        }
+      ],
+      "holders": [
+        "The Apache Software Foundation"
+      ],
+      "copyright_detections": [
+        {
+          "copyright": "Copyright (c) 2001-2024 The Apache Software Foundation",
+          "holders": [
+            {
+              "holder": "The Apache Software Foundation"
+            }
+          ],
+          "authors": [],
+          "start_line": 16,
+          "end_line": 16
+        }
+      ],
+      "emails": [],
+      "urls": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "holders_legacy": [
+        "The Apache Software Foundation"
+      ],
+      "package_type": null,
+      "package_name": null,
+      "package_version": null,
+      "packages": [],
+      "errors": []
+    }
+  ],
+  "summary": {
+    "license": [
+      {
+        "value": "apache-2.0",
+        "count": 15,
+        "percentage": 88.24
+      },
+      {
+        "value": null,
+        "count": 2,
+        "percentage": 11.76
+      }
+    ],
+    "license_key": [
+      {
+        "value": "apache-2.0",
+        "count": 15,
+        "percentage": 88.24
+      },
+      {
+        "value": null,
+        "count": 2,
+        "percentage": 11.76
+      }
+    ],
+    "copyright": [
+      {
+        "value": "Copyright (c) 2001-2024 The Apache Software Foundation",
+        "count": 14,
+        "percentage": 82.35
+      },
+      {
+        "value": null,
+        "count": 3,
+        "percentage": 17.65
+      }
+    ],
+    "holder": [
+      {
+        "value": "The Apache Software Foundation",
+        "count": 14,
+        "percentage": 82.35
+      },
+      {
+        "value": null,
+        "count": 3,
+        "percentage": 17.65
+      }
+    ],
+    "package_type": [
+      {
+        "value": "maven",
+        "count": 1,
+        "percentage": 5.88
+      },
+      {
+        "value": null,
+        "count": 16,
+        "percentage": 94.12
+      }
+    ],
+    "programming_language": [
+      {
+        "value": "Java",
+        "count": 11,
+        "percentage": 64.71
+      },
+      {
+        "value": "XML",
+        "count": 3,
+        "percentage": 17.65
+      },
+      {
+        "value": "Markdown",
+        "count": 1,
+        "percentage": 5.88
+      },
+      {
+        "value": null,
+        "count": 2,
+        "percentage": 11.76
+      }
+    ],
+    "file_type": [
+      {
+        "value": "Java source code, ASCII text",
+        "count": 11,
+        "percentage": 64.71
+      },
+      {
+        "value": "XML 1.0 document, ASCII text",
+        "count": 3,
+        "percentage": 17.65
+      },
+      {
+        "value": "ASCII text",
+        "count": 2,
+        "percentage": 11.76
+      },
+      {
+        "value": "Markdown document, ASCII text",
+        "count": 1,
+        "percentage": 5.88
+      }
+    ]
+  }
+}

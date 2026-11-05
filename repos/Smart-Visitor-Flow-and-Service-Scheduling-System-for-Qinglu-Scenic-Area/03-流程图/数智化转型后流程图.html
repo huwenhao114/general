@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>青麓景区 · 数智化转型后流程图（客流与服务调度）</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  body { font-family:"Microsoft YaHei",sans-serif; background:#f5f7fa; margin:0; padding:30px; }
+  .header { background:linear-gradient(135deg,#16a34a,#15803d); color:#fff; padding:24px 30px; border-radius:12px; margin-bottom:24px; }
+  .header h1 { margin:0; font-size:22px; }
+  .header p { margin:6px 0 0; font-size:14px; opacity:0.9; }
+  .mermaid { background:#fff; padding:30px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08); text-align:center; }
+  .value-section { margin-top:24px; background:#fff; border-radius:12px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+  .value-section h2 { color:#16a34a; font-size:18px; margin:0 0 16px; padding-bottom:12px; border-bottom:2px solid #dcfce7; }
+  .value-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .value-card { background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-radius:10px; padding:16px; text-align:center; }
+  .value-card .num { font-size:28px; font-weight:bold; color:#15803d; }
+  .value-card .label { font-size:12px; color:#166534; margin-top:4px; }
+  .footer { text-align:center; color:#999; font-size:12px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🟢 青麓景区 · 数智化转型后流程图（客流与服务调度）</h1>
+  <p>基于 IoT + AI + 云端协同的智能客流调度流程 · 含价值指标</p>
+</div>
+
+<div class="mermaid">
+flowchart TD
+    A([游客抵达景区]) --> B[IoT闸机/摄像头<br/>自动采集入园数据]
+    B --> C[客流感知中台<br/>实时计算各区域人数]
+    C --> D{AI客流预测引擎<br/>分析拥挤趋势}
+    D -->|预测拥堵| E[生成主动分流建议]
+    D -->|正常| F[保持当前引导策略]
+    E --> G[引导员移动端<br/>收到分流指令]
+    F --> G
+    G --> H[电子导览屏/小程序<br/>向游客推送分流信息]
+    H --> I[游客按推荐路线游览]
+    C --> J[实时数据看板<br/>运营主任全局监控]
+    I --> K{区域异常自动检测<br/>拥堵/投诉/设备故障}
+    K -->|异常| L[AI自动生成调度工单]
+    L --> M[系统按部门/位置<br/>智能派单]
+    M --> N[责任人移动端接单]
+    N --> O[现场处理并拍照上传]
+    O --> P[系统自动验收并归档]
+    K -->|正常| Q[游客游览离园]
+    P --> Q
+    Q --> R([游览结束])
+    R --> S[数据回流中台<br/>持续优化预测模型]
+    S --> D
+
+    classDef ai fill:#fef3c7,stroke:#f59e0b,stroke-width:2px,color:#92400e
+    classDef iot fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    classDef value fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#166534
+    class C,D,J,L,M,P iot
+    class E,H ai
+    class S value
+</div>
+
+<div class="value-section">
+  <h2>📈 数智化转型核心价值指标</h2>
+  <div class="value-grid">
+    <div class="value-card"><div class="num">+22%</div><div class="label">平均停留时长提升</div></div>
+    <div class="value-card"><div class="num">-75%</div><div class="label">调度响应时长缩短</div></div>
+    <div class="value-card"><div class="num">-44%</div><div class="label">游客投诉率下降</div></div>
+    <div class="value-card"><div class="num">+24%</div><div class="label">区域资源利用率提升</div></div>
+  </div>
+</div>
+
+<div class="footer">青麓景区客流与服务调度系统 · 数智化转型后流程图 · FDE Discovery Lab</div>
+
+<script>
+mermaid.initialize({startOnLoad:true,theme:'default',themeVariables:{primaryColor:'#dcfce7',primaryTextColor:'#166534',primaryBorderColor:'#16a34a',lineColor:'#6b7280'}});
+</script>
+</body>
+</html>

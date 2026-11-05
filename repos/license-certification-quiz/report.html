@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScanCode Scan Report - commons-lang3</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+    color: #fff;
+    padding: 24px 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+  .header .meta {
+    margin-top: 12px;
+    font-size: 12px;
+    opacity: 0.75;
+  }
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 32px;
+  }
+  .notice {
+    background: #fff8e1;
+    border-left: 4px solid #ffa000;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #5d4037;
+    border-radius: 0 4px 4px 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border-top: 3px solid #2c5282;
+  }
+  .stat-card .label {
+    font-size: 12px;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .stat-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a365d;
+  }
+  .stat-card .sub {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-top: 4px;
+  }
+  .section {
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .section-title {
+    background: #f7fafc;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .section-body {
+    padding: 20px;
+  }
+  .license-summary {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .license-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    cursor: default;
+  }
+  .license-badge .count {
+    margin-left: 8px;
+    background: rgba(255,255,255,0.25);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .badge-permissive { background: #38a169; }
+  .badge-copyleft { background: #d53f8c; }
+  .badge-unknown { background: #718096; }
+  .search-box {
+    margin-bottom: 16px;
+  }
+  .search-box input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input:focus {
+    border-color: #2c5282;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: #edf2f7;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 2px solid #cbd5e0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #edf2f7;
+    vertical-align: top;
+  }
+  tbody tr:hover {
+    background: #f7fafc;
+  }
+  .file-path {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px;
+    color: #2d3748;
+    word-break: break-all;
+  }
+  .license-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .tag-apache { background: #38a169; }
+  .tag-nolicense { background: #cbd5e0; color: #4a5568; }
+  .copyright-text {
+    font-size: 12px;
+    color: #4a5568;
+  }
+  .score {
+    font-weight: 600;
+    color: #2b6cb0;
+  }
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: #718096;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+  }
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: #a0aec0;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 8px 16px;
+    font-size: 13px;
+  }
+  .info-grid .key {
+    color: #718096;
+    font-weight: 500;
+  }
+  .info-grid .val {
+    color: #2d3748;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ScanCode Scan Report</h1>
+  <div class="subtitle">Apache Commons Lang 3.14.0 — License &amp; Copyright Compliance Analysis</div>
+  <div class="meta">
+    Tool: ScanCode Toolkit 32.0.6 &nbsp;|&nbsp;
+    Scan Start: 2026-10-29 14:23:11 &nbsp;|&nbsp;
+    Scan End: 2026-10-29 14:26:47 &nbsp;|&nbsp;
+    Duration: 3m 36s
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="notice">
+    <strong>Disclaimer:</strong> Generated with ScanCode and provided on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND. No content created from ScanCode should be considered or used as legal advice. Consult an Attorney for any legal advice.
+  </div>
+
+  <!-- Statistics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="label">Total Files</div>
+      <div class="value">1,468</div>
+      <div class="sub">156 directories</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Files Scanned</div>
+      <div class="value">17</div>
+      <div class="sub">shown in this view</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Licenses Found</div>
+      <div class="value">15</div>
+      <div class="sub">files with licenses</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Copyrights Found</div>
+      <div class="value">14</div>
+      <div class="sub">1 unique holder</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Packages</div>
+      <div class="value">1</div>
+      <div class="sub">Maven package</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">No License</div>
+      <div class="value">2</div>
+      <div class="sub">files without license</div>
+    </div>
+  </div>
+
+  <!-- License Summary -->
+  <div class="section">
+    <div class="section-title">License Summary</div>
+    <div class="section-body">
+      <div class="license-summary">
+        <span class="license-badge badge-permissive">Apache-2.0 <span class="count">15</span></span>
+        <span class="license-badge badge-unknown">No license detected <span class="count">2</span></span>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot badge-permissive"></div> Permissive (use freely, keep attribution)</div>
+        <div class="legend-item"><div class="legend-dot badge-copyleft"></div> Copyleft (derivative works must be open-sourced)</div>
+        <div class="legend-item"><div class="legend-dot badge-unknown"></div> Unknown / No license detected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scan Info -->
+  <div class="section">
+    <div class="section-title">Scan Information</div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="key">Project</div><div class="val">Apache Commons Lang 3.14.0</div>
+        <div class="key">Tool</div><div class="val">ScanCode Toolkit v32.0.6</div>
+        <div class="key">Scan Mode</div><div class="val">--license --copyright --package --info</div>
+        <div class="key">Output Format</div><div class="val">JSON (pretty-printed) + HTML</div>
+        <div class="key">Total Size</div><div class="val">38.6 MB</div>
+        <div class="key">File Types</div><div class="val">Java (64.7%), XML (17.6%), Text (11.8%), Markdown (5.9%)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File Results Table -->
+  <div class="section">
+    <div class="section-title">File-Level Scan Results (17 of 1,468 files)</div>
+    <div class="section-body">
+      <div class="search-box">
+        <input type="text" placeholder="Search by file path, license, or copyright..." id="searchInput" onkeyup="filterTable()">
+      </div>
+      <table id="resultsTable">
+        <thead>
+          <tr>
+            <th style="width: 40%;">File Path</th>
+            <th style="width: 18%;">License</th>
+            <th style="width: 12%;">Score</th>
+            <th style="width: 30%;">Copyright / Holder</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="file-path">LICENSE.txt</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation. All rights reserved.</td>
+          </tr>
+          <tr>
+            <td class="file-path">NOTICE.txt</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">98.5%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">pom.xml</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">— (package: org.apache.commons:commons-lang3:3.14.0)</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/StringUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/ArrayUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/StringEscapeUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/builder/ToStringBuilder.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/math/Fraction.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/time/DateUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/ExceptionUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/java/org/apache/commons/lang3/tuple/Pair.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/test/java/org/apache/commons/lang3/StringUtilsTest.java</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">Copyright (c) 2001-2024 The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td class="file-path">README.md</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">95.0%</td>
+            <td class="copyright-text">—</td>
+          </tr>
+          <tr>
+            <td class="file-path">checkstyle.xml</td>
+            <td><span class="license-tag tag-apache">Apache-2.0</span></td>
+            <td class="score">100.0%</td>
+            <td class="copyright-text">—</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/site/site.xml</td>
+            <td><span class="license-tag tag-nolicense">No license</span></td>
+            <td class="score">—</td>
+            <td class="copyright-text">—</td>
+          </tr>
+          <tr>
+            <td class="file-path">src/main/resources/org/apache/commons/lang3/Strings.properties</td>
+            <td><span class="license-tag tag-nolicense">No license</span></td>
+            <td class="score">—</td>
+            <td class="copyright-text">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Package Info -->
+  <div class="section">
+    <div class="section-title">Detected Package</div>
+    <div class="section-body">
+      <div class="info-grid">
+        <div class="key">Package Type</div><div class="val">Maven (pom.xml)</div>
+        <div class="key">Group ID</div><div class="val">org.apache.commons</div>
+        <div class="key">Artifact ID</div><div class="val">commons-lang3</div>
+        <div class="key">Version</div><div class="val">3.14.0</div>
+        <div class="key">Declared License</div><div class="val">Apache-2.0</div>
+        <div class="key">Homepage</div><div class="val">https://commons.apache.org/proper/commons-lang/</div>
+        <div class="key">Dependencies</div><div class="val">junit:junit:4.13.2 (test), org.hamcrest:hamcrest:2.2 (test)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compliance Summary -->
+  <div class="section">
+    <div class="section-title">Compliance Summary</div>
+    <div class="section-body">
+      <table>
+        <thead>
+          <tr><th>Check Item</th><th>Result</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>License file present</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>LICENSE.txt contains full Apache-2.0 text</td>
+          </tr>
+          <tr>
+            <td>NOTICE file present</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>NOTICE.txt with Apache Software Foundation attribution</td>
+          </tr>
+          <tr>
+            <td>Source files license headers</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>All .java source files contain Apache-2.0 license header (100% match)</td>
+          </tr>
+          <tr>
+            <td>License consistency</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>All detected licenses are Apache-2.0; no conflicting licenses found</td>
+          </tr>
+          <tr>
+            <td>Resources without license</td>
+            <td style="color: #dd6b20; font-weight: 600;">⚠ Warning</td>
+            <td>2 resource/config files (site.xml, Strings.properties) have no license header — expected for non-source files</td>
+          </tr>
+          <tr>
+            <td>Copyright notices</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>14 files contain copyright notice by The Apache Software Foundation</td>
+          </tr>
+          <tr>
+            <td>Package metadata</td>
+            <td style="color: #38a169; font-weight: 600;">✓ Pass</td>
+            <td>pom.xml declares Apache-2.0, matches detected licenses</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Generated by ScanCode Toolkit 32.0.6 &nbsp;|&nbsp; Apache Commons Lang 3.14.0 &nbsp;|&nbsp; 2026-10-29
+</div>
+
+<script>
+function filterTable() {
+  const input = document.getElementById('searchInput');
+  const filter = input.value.toLowerCase();
+  const rows = document.querySelectorAll('#resultsTable tbody tr');
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(filter) ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>

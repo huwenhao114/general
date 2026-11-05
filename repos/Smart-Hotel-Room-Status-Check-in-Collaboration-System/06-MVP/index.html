@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酒店房态与入住协同系统 MVP</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="navbar">
+  <h1>🏨 酒店房态与入住协同系统 <small style="font-weight:normal;font-size:12px;opacity:0.7">MVP v1.0</small></h1>
+  <div class="nav-links">
+    <a href="#" data-page="page-board" class="active" onclick="showPage('page-board');return false">房态看板</a>
+    <a href="#" data-page="page-checkin" onclick="showPage('page-checkin');return false">入住办理</a>
+    <a href="#" data-page="page-tasks" onclick="showPage('page-tasks');return false">协同任务</a>
+    <a href="#" data-page="page-records" onclick="showPage('page-records');return false">入住记录</a>
+    <a href="#" onclick="resetData();return false" style="color:#f39c12">重置数据</a>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 统计卡片 -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">总房间数</div><div class="stat-value" id="statTotal">100</div></div>
+    <div class="stat-card green"><div class="stat-label">在住 / 入住率</div><div class="stat-value" id="statOcc">—</div></div>
+    <div class="stat-card orange"><div class="stat-label">空净可售</div><div class="stat-value" id="statVac">—</div></div>
+    <div class="stat-card purple"><div class="stat-label">待清洁</div><div class="stat-value" id="statCln">—</div></div>
+  </div>
+
+  <!-- 房态看板 -->
+  <div class="page active" id="page-board">
+    <div class="panel">
+      <div class="panel-title">🗺️ 实时房态看板</div>
+      <div class="floor-tabs"></div>
+      <div class="room-board" id="roomBoard"></div>
+      <div style="margin-top:15px;display:flex;gap:15px;flex-wrap:wrap;font-size:13px">
+        <span><span style="display:inline-block;width:14px;height:14px;background:#e74c3c;border-radius:3px;vertical-align:middle"></span> 在住</span>
+        <span><span style="display:inline-block;width:14px;height:14px;background:#27ae60;border-radius:3px;vertical-align:middle"></span> 空净可售</span>
+        <span><span style="display:inline-block;width:14px;height:14px;background:#f39c12;border-radius:3px;vertical-align:middle"></span> 待清洁</span>
+        <span><span style="display:inline-block;width:14px;height:14px;background:#95a5a6;border-radius:3px;vertical-align:middle"></span> 维修中</span>
+        <span><span style="display:inline-block;width:14px;height:14px;background:#3498db;border-radius:3px;vertical-align:middle"></span> 已预订</span>
+        <span><span style="display:inline-block;width:14px;height:14px;background:#9b59b6;border-radius:3px;vertical-align:middle"></span> 今日离店</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 入住办理 -->
+  <div class="page" id="page-checkin">
+    <div class="panel">
+      <div class="panel-title">📝 客人入住办理</div>
+      <div class="form-row">
+        <div class="form-group"><label>客人姓名 *</label><input id="ciName" placeholder="请输入姓名"></div>
+        <div class="form-group"><label>证件号 *</label><input id="ciIdcard" placeholder="身份证号"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>联系电话</label><input id="ciPhone" placeholder="手机号"></div>
+        <div class="form-group"><label>选择房间 *</label><select id="ciRoomSelect"></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>入住方式</label>
+          <select id="ciWay"><option>自助机</option><option>小程序</option><option>前台人工</option></select>
+        </div>
+        <div class="form-group"><label>押金(元)</label><input id="ciDeposit" type="number" value="300"></div>
+      </div>
+      <button class="btn btn-primary" onclick="doCheckin()">确认办理入住</button>
+    </div>
+  </div>
+
+  <!-- 协同任务 -->
+  <div class="page" id="page-tasks">
+    <div class="panel">
+      <div class="panel-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>⚡ 跨部门协同任务</span>
+        <button class="btn btn-primary" onclick="addTask()">+ 新建任务</button>
+      </div>
+      <div id="taskList"></div>
+    </div>
+  </div>
+
+  <!-- 入住记录 -->
+  <div class="page" id="page-records">
+    <div class="panel">
+      <div class="panel-title">📋 入住记录</div>
+      <table>
+        <thead><tr><th>房号</th><th>房型</th><th>客人</th><th>证件号</th><th>入住方式</th><th>押金</th><th>办理时间</th></tr></thead>
+        <tbody id="recordsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 房间详情模态框 -->
+<div class="modal-mask" id="roomModal">
+  <div class="modal">
+    <h3>房间详情 - <span id="modalRoomNum"></span></h3>
+    <div class="form-row">
+      <div class="form-group"><label>房型</label><div id="modalRoomType" style="padding:8px 0;color:#555"></div></div>
+      <div class="form-group"><label>当前状态</label><div id="modalStatus" style="padding:6px 0"></div></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>入住客人</label><div id="modalGuest" style="padding:8px 0;color:#555"></div></div>
+      <div class="form-group"><label>入住时间</label><div id="modalCheckinTime" style="padding:8px 0;color:#555"></div></div>
+    </div>
+    <div class="form-group" style="margin-top:10px"><label>修改房态</label>
+      <select id="modalStatusSelect"></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('roomModal').classList.remove('show')">取消</button>
+      <button class="btn btn-primary" onclick="saveRoomStatus()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>

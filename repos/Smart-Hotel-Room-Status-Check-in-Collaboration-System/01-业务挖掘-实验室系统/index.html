@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>酒店房态与入住协同 - 业务挖掘实验室系统</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: #0f1923; color: #e0e6ed; min-height: 100vh; }
+  .header { background: linear-gradient(135deg, #1a3a5c, #2c5f8d); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  .header h1 { font-size: 22px; color: #fff; }
+  .header .meta { font-size: 13px; color: #a0c4e8; }
+  .container { padding: 20px; }
+  .kpi-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 15px; margin-bottom: 20px; }
+  .kpi-card { background: linear-gradient(135deg, #1e3a5f, #2a4f7a); border-radius: 10px; padding: 18px; border-left: 4px solid #3498db; position: relative; overflow: hidden; }
+  .kpi-card.green { border-left-color: #27ae60; }
+  .kpi-card.orange { border-left-color: #f39c12; }
+  .kpi-card.purple { border-left-color: #9b59b6; }
+  .kpi-card.red { border-left-color: #e74c3c; }
+  .kpi-label { font-size: 12px; color: #8fa8c8; margin-bottom: 8px; }
+  .kpi-value { font-size: 28px; font-weight: bold; color: #fff; }
+  .kpi-trend { font-size: 12px; margin-top: 5px; }
+  .kpi-trend.up { color: #2ecc71; }
+  .kpi-trend.down { color: #e74c3c; }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 20px; }
+  .panel { background: #1a2a3a; border-radius: 10px; padding: 20px; }
+  .panel-title { font-size: 15px; color: #fff; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #2a4055; display: flex; justify-content: space-between; align-items: center; }
+  .room-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+  .room-cell { aspect-ratio: 1; border-radius: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; transition: transform 0.2s; position: relative; }
+  .room-cell:hover { transform: scale(1.15); z-index: 2; }
+  .room-cell .num { font-weight: bold; font-size: 12px; }
+  .room-cell .st { font-size: 9px; opacity: 0.85; }
+  .room-occupied { background: #e74c3c; }
+  .room-vacant { background: #27ae60; }
+  .room-cleaning { background: #f39c12; }
+  .room-maintenance { background: #95a5a6; }
+  .room-reserved { background: #3498db; }
+  .room-checkout { background: #9b59b6; }
+  .legend { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .chart-box { height: 280px; position: relative; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #243a52; color: #a0c4e8; padding: 10px; text-align: left; font-weight: normal; }
+  td { padding: 10px; border-bottom: 1px solid #243a52; }
+  tr:hover td { background: #1f3045; }
+  .tag { padding: 3px 8px; border-radius: 10px; font-size: 11px; }
+  .tag-green { background: rgba(39,174,96,0.2); color: #2ecc71; }
+  .tag-orange { background: rgba(243,156,18,0.2); color: #f39c12; }
+  .tag-blue { background: rgba(52,152,219,0.2); color: #3498db; }
+  .tag-red { background: rgba(231,76,60,0.2); color: #e74c3c; }
+  .insight-box { background: linear-gradient(135deg, #2c3e50, #34495e); border-radius: 8px; padding: 14px; margin-bottom: 10px; border-left: 3px solid #3498db; font-size: 13px; line-height: 1.6; }
+  .insight-box.high { border-left-color: #e74c3c; }
+  .insight-box.mid { border-left-color: #f39c12; }
+  .controls { display: flex; gap: 10px; }
+  .btn { background: #2c5f8d; color: #fff; border: none; padding: 6px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+  .btn:hover { background: #3a7ab5; }
+  .btn.active { background: #27ae60; }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .clock { font-family: 'Courier New', monospace; color: #2ecc71; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏨 酒店房态与入住协同 · 业务挖掘实验室系统</h1>
+  <div class="meta">
+    <span class="clock" id="clock">--:--:--</span> &nbsp;|&nbsp; 数据模拟实验室 v1.0 &nbsp;|&nbsp; <span style="color:#2ecc71">●</span> 实时运行中
+  </div>
+</div>
+
+<div class="container">
+  <!-- KPI 卡片 -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">总房间数</div>
+      <div class="kpi-value">200</div>
+      <div class="kpi-trend up">▲ 酒店总容量</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">当前入住率</div>
+      <div class="kpi-value" id="occRate">73.5%</div>
+      <div class="kpi-trend up">▲ 较昨日 +2.3%</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">今日入住</div>
+      <div class="kpi-value" id="todayCheckin">48</div>
+      <div class="kpi-trend up">▲ 预计 62 间</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">平均入住时长</div>
+      <div class="kpi-value" id="avgTime">4分32秒</div>
+      <div class="kpi-trend down">▼ 较上月 -38%</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">待清洁房</div>
+      <div class="kpi-value" id="cleaningRooms">12</div>
+      <div class="kpi-trend down">▼ 清洁中 8 间</div>
+    </div>
+  </div>
+
+  <!-- 房态图 + 入住趋势 -->
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-title">
+        <span>🗺️ 实时房态矩阵（1-200房）</span>
+        <div class="controls">
+          <button class="btn active" onclick="filterRooms('all',this)">全部</button>
+          <button class="btn" onclick="filterRooms('occupied',this)">在住</button>
+          <button class="btn" onclick="filterRooms('vacant',this)">空房</button>
+          <button class="btn" onclick="filterRooms('cleaning',this)">清洁</button>
+        </div>
+      </div>
+      <div class="room-grid" id="roomGrid"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div>在住</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div>空净可售</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f39c12"></div>待清洁</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#95a5a6"></div>维修</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div>已预订</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div>今日离店</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">📈 近7日入住率趋势</div>
+      <div class="chart-box"><canvas id="trendChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 三列：营收分布、房型占比、协同事件 -->
+  <div class="grid-3">
+    <div class="panel">
+      <div class="panel-title">💰 今日营收分布</div>
+      <div class="chart-box" style="height:240px"><canvas id="revenueChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🏠 房型入住占比</div>
+      <div class="chart-box" style="height:240px"><canvas id="roomTypeChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">🔔 协同事件流</div>
+      <div id="eventFeed" style="max-height:240px;overflow-y:auto;font-size:12px;"></div>
+    </div>
+  </div>
+
+  <!-- 业务洞察 + 部门协同热力 -->
+  <div class="grid" style="margin-top:15px">
+    <div class="panel">
+      <div class="panel-title">🧠 AI 业务挖掘洞察</div>
+      <div class="insight-box high">
+        <strong>🚨 高优先级：</strong>10楼有3间待清洁房超过45分钟未分配清洁员，可能影响14:00后的入住排房，建议立即调度。
+      </div>
+      <div class="insight-box mid">
+        <strong>⚠️ 中优先级：</strong>今日商务大床房入住率达92%，预计晚间将超售，建议提前升级5间至行政房或启动动态定价。
+      </div>
+      <div class="insight-box">
+        <strong>💡 优化建议：</strong>本周六入住高峰，建议提前3小时开放自助入住机，并增派2名前台协助行李寄存，可减少排队约40%。
+      </div>
+      <div class="insight-box">
+        <strong>📊 数据洞察：</strong>近30天自助入住占比从28%提升至61%，前台人力成本下降35%，客户满意度从4.2升至4.7。
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">⚡ 部门协同热力</div>
+      <div class="chart-box"><canvas id="collabChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 入住记录明细 -->
+  <div class="panel" style="margin-top:15px">
+    <div class="panel-title">📋 今日入住记录明细</div>
+    <table>
+      <thead>
+        <tr><th>房号</th><th>房型</th><th>客人</th><th>入住方式</th><th>入住时长</th><th>押金</th><th>状态</th></tr>
+      </thead>
+      <tbody id="checkinTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// 时钟
+function updateClock(){
+  const d=new Date();
+  document.getElementById('clock').textContent=d.toLocaleTimeString('zh-CN');
+}
+setInterval(updateClock,1000);updateClock();
+
+// 房态数据生成
+const statuses=['occupied','vacant','cleaning','maintenance','reserved','checkout'];
+const statusLabel={occupied:'在住',vacant:'空净',cleaning:'清洁',maintenance:'维修',reserved:'预订',checkout:'离店'};
+const statusClass={occupied:'room-occupied',vacant:'room-vacant',cleaning:'room-cleaning',maintenance:'room-maintenance',reserved:'room-reserved',checkout:'room-checkout'};
+
+const rooms=[];
+for(let i=1;i<=200;i++){
+  const r=Math.random();
+  let s;
+  if(r<0.73)s='occupied';
+  else if(r<0.85)s='vacant';
+  else if(r<0.92)s='cleaning';
+  else if(r<0.95)s='maintenance';
+  else if(r<0.98)s='reserved';
+  else s='checkout';
+  rooms.push({num:i,status:s,type:['标准间','大床房','商务房','套房'][Math.floor(Math.random()*4)]});
+}
+
+function renderRooms(filter){
+  const grid=document.getElementById('roomGrid');
+  grid.innerHTML='';
+  rooms.forEach(r=>{
+    if(filter!=='all'&&r.status!==filter)return;
+    const cell=document.createElement('div');
+    cell.className='room-cell '+statusClass[r.status];
+    cell.innerHTML=`<div class="num">${r.num}</div><div class="st">${statusLabel[r.status]}</div>`;
+    cell.title=`房号 ${r.num} | ${r.type} | ${statusLabel[r.status]}`;
+    grid.appendChild(cell);
+  });
+}
+function filterRooms(f,btn){
+  document.querySelectorAll('.controls .btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRooms(f);
+}
+renderRooms('all');
+
+// 入住率趋势
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{labels:['10-23','10-24','10-25','10-26','10-27','10-28','10-29'],
+    datasets:[{label:'入住率(%)',data:[68,71,65,78,82,71,73.5],borderColor:'#27ae60',backgroundColor:'rgba(39,174,96,0.15)',fill:true,tension:0.4,pointRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#a0c4e8'}}},scales:{x:{ticks:{color:'#8fa8c8'},grid:{color:'#243a52'}},y:{ticks:{color:'#8fa8c8'},grid:{color:'#243a52'},min:50,max:100}}}
+});
+
+// 营收分布
+new Chart(document.getElementById('revenueChart'),{
+  type:'doughnut',
+  data:{labels:['房费','餐饮','洗衣','迷你吧','其他'],
+    datasets:[{data:[68,18,5,4,5],backgroundColor:['#3498db','#27ae60','#f39c12','#9b59b6','#95a5a6']}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#a0c4e8',font:{size:11}}}}}
+});
+
+// 房型占比
+new Chart(document.getElementById('roomTypeChart'),{
+  type:'bar',
+  data:{labels:['标准间','大床房','商务房','套房','亲子房'],
+    datasets:[{label:'入住数',data:[52,48,28,12,8],backgroundColor:['#3498db','#27ae60','#f39c12','#9b59b6','#1abc9c']}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8fa8c8'},grid:{color:'#243a52'}},y:{ticks:{color:'#8fa8c8'},grid:{display:false}}}}
+});
+
+// 部门协同
+new Chart(document.getElementById('collabChart'),{
+  type:'radar',
+  data:{labels:['前台↔客房','客房↔工程','前台↔餐饮','工程↔安保','餐饮↔客房','前台↔工程'],
+    datasets:[{label:'协同频次',data:[85,62,45,30,38,55],borderColor:'#3498db',backgroundColor:'rgba(52,152,219,0.2)',pointBackgroundColor:'#3498db'},
+              {label:'自动化率',data:[72,48,30,25,20,40],borderColor:'#27ae60',backgroundColor:'rgba(39,174,96,0.15)',pointBackgroundColor:'#27ae60'}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#a0c4e8',font:{size:11}}}},scales:{r:{angleLines:{color:'#243a52'},grid:{color:'#243a52'},pointLabels:{color:'#a0c4e8',font:{size:11}},ticks:{color:'#8fa8c8',backdropColor:'transparent'}}}}
+});
+
+// 事件流
+const events=[
+  {t:'14:23',c:'red',txt:'1008房待清洁超45分钟，系统自动调度'},
+  {t:'14:18',c:'green',txt:'305房客人扫码入住成功（自助机）'},
+  {t:'14:15',c:'blue',txt:'客房部完成8楼整层清洁，房态已回写'},
+  {t:'14:10',c:'orange',txt:'502房空调故障，工单派发至工程部'},
+  {t:'14:05',c:'green',txt:'1203房电子房卡下发至客人小程序'},
+  {t:'13:58',c:'purple',txt:'608房客人办理离店，触发清洁任务'},
+  {t:'13:50',c:'blue',txt:'AI排房建议：将12位商务客分配至行政楼层'},
+  {t:'13:42',c:'green',txt:'自助入住机今日第38单，平均耗时28秒'},
+  {t:'13:35',c:'orange',txt:'701房迷你吧消费¥58，自动计入账单'},
+  {t:'13:28',c:'red',txt:'网络抖动，IoT房态数据延迟同步（已恢复）'},
+];
+const ef=document.getElementById('eventFeed');
+events.forEach(e=>{
+  ef.innerHTML+=`<div style="padding:6px 0;border-bottom:1px solid #243a52;"><span style="color:#8fa8c8">${e.t}</span> <span class="tag tag-${e.c}">●</span> ${e.txt}</div>`;
+});
+
+// 入住明细
+const names=['张先生','李女士','王总','刘女士','陈先生','杨女士','赵先生','黄女士','周先生','吴女士'];
+const ways=[['自助机','tag-green'],['前台','tag-blue'],['小程序','tag-green'],['前台','tag-blue']];
+const tbody=document.getElementById('checkinTable');
+for(let i=0;i<10;i++){
+  const room=300+i*7+Math.floor(Math.random()*5);
+  const w=ways[Math.floor(Math.random()*ways.length)];
+  const sec=25+Math.floor(Math.random()*300);
+  tbody.innerHTML+=`<tr>
+    <td>${room}</td>
+    <td>${['标准间','大床房','商务房','套房'][i%4]}</td>
+    <td>${names[i]}</td>
+    <td><span class="tag ${w[1]}">${w[0]}</span></td>
+    <td>${sec<60?sec+'秒':Math.floor(sec/60)+'分'+(sec%60)+'秒'}</td>
+    <td>¥${[300,500,800,1000][i%4]}</td>
+    <td><span class="tag tag-green">已入住</span></td>
+  </tr>`;
+}
+
+// 模拟实时数据跳动
+setInterval(()=>{
+  const el=document.getElementById('todayCheckin');
+  el.textContent=48+Math.floor(Math.random()*3);
+},5000);
+</script>
+</body>
+</html>

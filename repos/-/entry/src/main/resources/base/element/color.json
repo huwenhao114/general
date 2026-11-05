@@ -1,0 +1,13 @@
+{
+  "color": [
+    { "name": "start_window_background", "value": "#FFFFFF" },
+    { "name": "page_background", "value": "#F1F3F5" },
+    { "name": "card_background", "value": "#FFFFFF" },
+    { "name": "title_text", "value": "#18253D" },
+    { "name": "body_text", "value": "#18253D" },
+    { "name": "secondary_text", "value": "#99A2B2" },
+    { "name": "accent", "value": "#007DFF" },
+    { "name": "divider", "value": "#E5E5E5" },
+    { "name": "progress_track", "value": "#E0E0E0" }
+  ]
+}

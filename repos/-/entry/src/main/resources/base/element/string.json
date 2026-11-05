@@ -1,0 +1,7 @@
+{
+  "string": [
+    { "name": "module_desc", "value": "习惯打卡应用" },
+    { "name": "EntryAbility_desc", "value": "习惯打卡" },
+    { "name": "EntryAbility_label", "value": "习惯打卡" }
+  ]
+}

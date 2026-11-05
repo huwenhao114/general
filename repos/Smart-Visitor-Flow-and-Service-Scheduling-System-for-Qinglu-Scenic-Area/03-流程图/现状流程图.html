@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>青麓景区 · 现状流程图（客流与服务调度）</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  body { font-family:"Microsoft YaHei",sans-serif; background:#f5f7fa; margin:0; padding:30px; }
+  .header { background:linear-gradient(135deg,#dc2626,#991b1b); color:#fff; padding:24px 30px; border-radius:12px; margin-bottom:24px; }
+  .header h1 { margin:0; font-size:22px; }
+  .header p { margin:6px 0 0; font-size:14px; opacity:0.9; }
+  .mermaid { background:#fff; padding:30px; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.08); text-align:center; }
+  .pain-points { margin-top:24px; background:#fff; border-radius:12px; padding:24px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+  .pain-points h2 { color:#dc2626; font-size:18px; margin:0 0 16px; padding-bottom:12px; border-bottom:2px solid #fee2e2; }
+  .pain-list { list-style:none; padding:0; }
+  .pain-list li { padding:10px 14px; background:#fef2f2; border-left:4px solid #dc2626; margin-bottom:10px; border-radius:6px; font-size:14px; line-height:1.6; }
+  .pain-list li b { color:#dc2626; }
+  .footer { text-align:center; color:#999; font-size:12px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔴 青麓景区 · 现状流程图（客流与服务调度）</h1>
+  <p>传统人工 / 半人工模式下的客流管理与服务协同流程 · 含痛点标注</p>
+</div>
+
+<div class="mermaid">
+flowchart TD
+    A([游客抵达景区]) --> B[入口广场检票入园]
+    B --> C{引导员人工观察<br/>客流情况}
+    C -->|客流大| D[对讲机呼叫<br/>各区域引导员]
+    C -->|客流小| E[自行引导<br/>游客游览]
+    D --> F[各引导员口头回复<br/>区域大致人数]
+    F --> G{引导员凭经验<br/>判断分流方向}
+    G -->|分流| H[口头引导游客<br/>前往空闲区域]
+    G -->|不分流| I[游客自行选择路线]
+    E --> I
+    H --> I
+    I --> J[游客分散至各区域]
+    J --> K{区域出现异常<br/>拥堵/投诉/设备故障}
+    K -->|是| L[游客投诉或现场反馈]
+    L --> M[运营主任接到通知]
+    M --> N[人工指派任务<br/>给对应部门]
+    N --> O[保洁/安保/客服<br/>前往处理]
+    O --> P[口头汇报处理结果]
+    K -->|否| Q[游客游览离园]
+    P --> Q
+    Q --> R([游览结束])
+
+    classDef pain fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    class C,D,F,G,L,M,N pain
+</div>
+
+<div class="pain-points">
+  <h2>⚠️ 现状流程核心痛点</h2>
+  <ul class="pain-list">
+    <li><b>信息盲区：</b>引导员无法获取各区域实时人数，仅靠人工观察与对讲机沟通，数据严重滞后（8-12分钟）。</li>
+    <li><b>经验决策：</b>分流方向完全依赖引导员个人经验判断，缺乏数据支撑，分流效果参差不齐。</li>
+    <li><b>被动调度：</b>73%的服务调度由游客投诉触发，缺乏主动预测与预警机制，服务响应滞后。</li>
+    <li><b>人工指派：</b>运营主任人工协调各部门，任务分配依赖口头传达，无工单留痕，责任难以追溯。</li>
+    <li><b>无数据闭环：</b>整个流程无系统化数据采集与分析，无法沉淀运营经验，难以持续优化。</li>
+    <li><b>资源失衡：</b>入口广场过载而偏远区域空闲，整体资源利用率仅约58%，游客体验与景区收益双受损。</li>
+  </ul>
+</div>
+
+<div class="footer">青麓景区客流与服务调度系统 · 现状流程图 · FDE Discovery Lab</div>
+
+<script>
+mermaid.initialize({startOnLoad:true,theme:'default',themeVariables:{primaryColor:'#dbeafe',primaryTextColor:'#1e3a5f',primaryBorderColor:'#3b82f6',lineColor:'#6b7280'}});
+</script>
+</body>
+</html>

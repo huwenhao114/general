@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "考试倒计时复习计划"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "考试倒计时与复习计划管理"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "考试复习计划"
+    }
+  ]
+}

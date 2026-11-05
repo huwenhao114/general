@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>青麓景区 · 客流与服务调度业务挖掘实验室</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Microsoft YaHei","PingFang SC",sans-serif; background:#0a1628; color:#e0e6ed; min-height:100vh; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#2d5f8a 100%); padding:20px 30px; border-bottom:3px solid #4a9eff; display:flex; justify-content:space-between; align-items:center; }
+  .header h1 { font-size:22px; color:#fff; }
+  .header .subtitle { font-size:13px; color:#a8c5e0; margin-top:4px; }
+  .header .badge { background:#4a9eff; color:#fff; padding:6px 14px; border-radius:20px; font-size:13px; }
+  .container { padding:20px; }
+  .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px; }
+  .stat-card { background:linear-gradient(135deg,#16263d 0%,#1e3a5f 100%); border-radius:12px; padding:20px; border-left:4px solid #4a9eff; }
+  .stat-card .label { font-size:13px; color:#8ba3c4; margin-bottom:8px; }
+  .stat-card .value { font-size:32px; font-weight:bold; color:#fff; }
+  .stat-card .unit { font-size:14px; color:#8ba3c4; margin-left:4px; }
+  .stat-card .delta { font-size:12px; margin-top:6px; }
+  .up { color:#4ade80; } .down { color:#f87171; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px; }
+  .panel { background:#16263d; border-radius:12px; padding:20px; border:1px solid #2a4060; }
+  .panel h3 { font-size:15px; color:#4a9eff; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid #2a4060; }
+  .panel h3 .tag { float:right; background:#2a4060; color:#8ba3c4; padding:2px 10px; border-radius:10px; font-size:11px; font-weight:normal; }
+  .chart-box { position:relative; height:260px; }
+  .heatmap { display:grid; grid-template-columns:80px repeat(6,1fr); gap:4px; font-size:12px; }
+  .heatmap .cell { padding:10px 4px; text-align:center; border-radius:4px; font-weight:bold; }
+  .heatmap .h-label { color:#8ba3c4; display:flex; align-items:center; padding-left:8px; }
+  .heatmap .c-header { color:#a8c5e0; text-align:center; font-size:11px; }
+  .insight-list { list-style:none; }
+  .insight-list li { padding:12px; background:#1a2d4a; border-radius:8px; margin-bottom:10px; border-left:3px solid #fbbf24; font-size:13px; line-height:1.6; }
+  .insight-list li .icon { color:#fbbf24; font-weight:bold; margin-right:6px; }
+  .event-feed { max-height:260px; overflow-y:auto; }
+  .event-item { padding:10px 12px; background:#1a2d4a; border-radius:6px; margin-bottom:8px; font-size:12px; border-left:3px solid #4a9eff; }
+  .event-item .time { color:#8ba3c4; font-size:11px; }
+  .event-item .desc { color:#e0e6ed; margin-top:3px; }
+  .event-item.high { border-left-color:#f87171; }
+  .event-item.mid { border-left-color:#fbbf24; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th,td { padding:8px 10px; text-align:left; border-bottom:1px solid #2a4060; }
+  th { color:#8ba3c4; font-weight:normal; background:#1a2d4a; }
+  td { color:#e0e6ed; }
+  .tag-status { padding:2px 8px; border-radius:10px; font-size:11px; }
+  .s-done { background:#166534; color:#4ade80; }
+  .s-doing { background:#92400e; color:#fbbf24; }
+  .s-pending { background:#374151; color:#9ca3af; }
+  .footer { text-align:center; padding:20px; color:#5a7090; font-size:12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🏞️ 青麓景区 · 客流与服务调度业务挖掘实验室</h1>
+    <div class="subtitle">数据驱动的业务机会识别 · 现状基线测量 · 立项决策链分析</div>
+  </div>
+  <div class="badge">业务挖掘阶段 · 实时看板</div>
+</div>
+
+<div class="container">
+
+  <!-- 顶部统计卡片 -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="label">今日入园总客流</div>
+      <div class="value">8,642<span class="unit">人次</span></div>
+      <div class="delta up">↑ 12.3% 较昨日</div>
+    </div>
+    <div class="stat-card" style="border-left-color:#fbbf24">
+      <div class="label">当前在园人数</div>
+      <div class="value">3,217<span class="unit">人</span></div>
+      <div class="delta up">↑ 高峰期 +18%</div>
+    </div>
+    <div class="stat-card" style="border-left-color:#4ade80">
+      <div class="label">平均停留时长</div>
+      <div class="value">3.6<span class="unit">小时</span></div>
+      <div class="delta down">↓ 0.4h 目标4.0h</div>
+    </div>
+    <div class="stat-card" style="border-left-color:#f87171">
+      <div class="label">今日服务调度任务</div>
+      <div class="value">47<span class="unit">单</span></div>
+      <div class="delta up">完成 38 / 待处理 9</div>
+    </div>
+  </div>
+
+  <!-- 客流分布 + 趋势 -->
+  <div class="grid-2">
+    <div class="panel">
+      <h3>各区域实时客流分布 <span class="tag">热力</span></h3>
+      <div class="chart-box"><canvas id="areaChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <h3>今日客流入园趋势 <span class="tag">时间序列</span></h3>
+      <div class="chart-box"><canvas id="trendChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 区域拥挤度热力图 -->
+  <div class="panel" style="margin-bottom:20px">
+    <h3>各区域分时拥挤度热力图 <span class="tag">6大区域 × 6时段</span></h3>
+    <div class="heatmap" id="heatmap"></div>
+  </div>
+
+  <!-- AI洞察 + 部门协同 -->
+  <div class="grid-2">
+    <div class="panel">
+      <h3>🤖 AI 业务挖掘洞察 <span class="tag">自动生成</span></h3>
+      <ul class="insight-list">
+        <li><span class="icon">◆</span><b>客流失衡：</b>入口广场瞬时承载量达设计上限 112%，而西区竹林园区空闲率达 63%，缺乏实时分流引导。</li>
+        <li><span class="icon">◆</span><b>信息盲区：</b>现场引导员（林亦舟）无法获取各区域实时人数，仅靠对讲机人工沟通，平均响应延迟 8-12 分钟。</li>
+        <li><span class="icon">◆</span><b>调度被动：</b>73% 的服务调度任务为事后投诉触发，缺乏基于客流预测的主动调度机制。</li>
+        <li><span class="icon">◆</span><b>决策模糊：</b>管理层（顾明岚）希望引入 AI，但未明确优先环节、验收标准与权限边界，存在落地风险。</li>
+        <li><span class="icon">◆</span><b>机会点：</b>建设"客流感知 + AI 分流 + 协同调度"系统，预计可将平均停留时长提升 22%，投诉率下降 45%。</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>部门协同热力图 <span class="tag">角色 × 任务</span></h3>
+      <div class="chart-box"><canvas id="collabChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 实时事件流 + 调度记录 -->
+  <div class="grid-2">
+    <div class="panel">
+      <h3>⚡ 实时调度事件流 <span class="tag">Live</span></h3>
+      <div class="event-feed" id="eventFeed"></div>
+    </div>
+    <div class="panel">
+      <h3>📋 服务调度记录明细 <span class="tag">今日</span></h3>
+      <table>
+        <thead><tr><th>时间</th><th>区域</th><th>任务</th><th>负责人</th><th>状态</th></tr></thead>
+        <tbody id="taskTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">青麓景区客流与服务调度系统 · 业务挖掘实验室 · FDE Discovery Lab · 数据为模拟演示样本</div>
+
+<script>
+// ===== 模拟数据 =====
+const areas = ['入口广场','核心观景区','西区竹林','南区花海','东区索道','北区古街'];
+const timeSlots = ['09-11时','11-13时','13-15时','15-17时','17-19时','19-21时'];
+const areaFlow = [1820, 1240, 480, 760, 950, 1120];
+const areaCapacity = [1500, 1000, 1200, 900, 800, 1000];
+const heatData = [
+  [85,92,78,60,45,30],
+  [72,88,95,80,55,35],
+  [25,30,35,40,42,38],
+  [40,55,68,72,60,40],
+  [55,70,82,88,75,50],
+  [60,75,80,85,80,60]
+];
+const roles = ['运营主任','入口引导员','区域引导员','保洁','安保','客服','票务','设备维护'];
+const tasks = ['客流疏导','卫生清洁','安全巡查','咨询解答','设备报修','投诉处理','票务指引','应急响应'];
+const collabData = [
+  [9,8,7,3,4,6,5,4],[8,9,8,2,3,7,8,3],[7,8,9,6,5,5,4,6],
+  [3,2,6,9,7,4,2,5],[4,3,5,7,9,5,3,7],[6,7,5,4,5,9,6,4],
+  [5,8,4,2,3,6,9,3],[4,3,6,5,7,4,3,9]
+];
+
+const events = [
+  {time:'14:32',desc:'入口广场客流超阈值，AI建议分流至西区竹林',level:'high'},
+  {time:'14:28',desc:'南区花海保洁完成，调度员傅景确认',level:'mid'},
+  {time:'14:15',desc:'东区索道排队超20分钟，启动临时疏导',level:'high'},
+  {time:'14:02',desc:'唐映秋提交游客咨询：餐饮位置指引',level:''},
+  {time:'13:48',desc:'北区古街客流回升，补充安保力量',level:'mid'},
+  {time:'13:30',desc:'设备维护秦芮完成入口闸机巡检',level:''},
+  {time:'13:15',desc:'叶书处理游客投诉：等候区遮阳不足',level:'mid'},
+  {time:'12:58',desc:'AI预测15时核心景区将达峰值，预调度',level:'high'}
+];
+
+const taskRecords = [
+  ['14:32','入口广场','客流超阈值分流','林亦舟','doing'],
+  ['14:15','东区索道','排队疏导','傅景','done'],
+  ['13:48','北区古街','安保补充','安保组','done'],
+  ['13:30','入口闸机','设备巡检','秦芮','done'],
+  ['13:15','等候区','投诉处理','叶书','done'],
+  ['12:58','核心景区','预调度准备','顾明岚','pending'],
+  ['12:40','南区花海','保洁清洁','保洁组','done']
+];
+
+// ===== 渲染热力图 =====
+const heatmap = document.getElementById('heatmap');
+let heatHTML = '<div></div>';
+timeSlots.forEach(t => heatHTML += `<div class="c-header">${t}</div>`);
+areas.forEach((area,i) => {
+  heatHTML += `<div class="h-label">${area}</div>`;
+  heatData[i].forEach(v => {
+    let bg;
+    if(v>=85) bg='#dc2626'; else if(v>=70) bg='#f59e0b'; else if(v>=50) bg='#eab308'; else if(v>=30) bg='#84cc16'; else bg='#22c55e';
+    heatHTML += `<div class="cell" style="background:${bg}">${v}%</div>`;
+  });
+});
+heatmap.innerHTML = heatHTML;
+
+// ===== 渲染事件流 =====
+document.getElementById('eventFeed').innerHTML = events.map(e =>
+  `<div class="event-item ${e.level}"><div class="time">${e.time}</div><div class="desc">${e.desc}</div></div>`
+).join('');
+
+// ===== 渲染调度记录表 =====
+const statusMap = {done:['已完成','s-done'],doing:['进行中','s-doing'],pending:['待处理','s-pending']};
+document.getElementById('taskTable').innerHTML = taskRecords.map(r =>
+  `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="tag-status ${statusMap[r[4]][1]}">${statusMap[r[4]][0]}</span></td></tr>`
+).join('');
+
+// ===== 图表 =====
+Chart.defaults.color = '#8ba3c4';
+Chart.defaults.borderColor = '#2a4060';
+
+new Chart(document.getElementById('areaChart'), {
+  type:'bar',
+  data:{
+    labels:areas,
+    datasets:[
+      {label:'当前客流',data:areaFlow,backgroundColor:'#4a9eff',borderRadius:4},
+      {label:'区域承载量',data:areaCapacity,backgroundColor:'rgba(248,113,113,0.4)',borderRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+});
+
+new Chart(document.getElementById('trendChart'), {
+  type:'line',
+  data:{
+    labels:['09时','10时','11时','12时','13时','14时','15时','16时','17时','18时'],
+    datasets:[{
+      label:'入园人数',
+      data:[320,680,1120,1450,1280,1150,980,820,560,280],
+      borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,0.15)',fill:true,tension:0.4
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}}}
+});
+
+new Chart(document.getElementById('collabChart'), {
+  type:'bar',
+  data:{
+    labels:roles,
+    datasets:tasks.map((t,i) => ({
+      label:t,
+      data:collabData.map(row => row[i]),
+      backgroundColor:['#4a9eff','#4ade80','#fbbf24','#f87171','#a78bfa','#f472b6','#22d3ee','#fb923c'][i]
+    }))
+  },
+  options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true,beginAtZero:true}}}
+});
+</script>
+</body>
+</html>
